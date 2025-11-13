@@ -1,4 +1,5 @@
 import os
+import sys
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -9,6 +10,15 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")    
 client = OpenAI(api_key=api_key)    
 print("Calling OpenAI GPT5-nano...See how long it takes...")
+
+def showStreamedResponse(streamed_response):
+    for chunk in streamed_response:
+        # Check for the delta content in the first choice
+        streamedcontent:str = chunk.choices[0].delta.content
+        if streamedcontent:
+            print(streamedcontent, end="")
+            # Immediately flush the output buffer to ensure real-time printing
+            sys.stdout.flush()
 
 messages = [
     {"role": "system", "content": "You are a helpful assistant."},
@@ -22,24 +32,34 @@ messages = [
 response = client.chat.completions.create(
     model="gpt-5-nano",
     messages=messages,
-    temperature=0.7,
     stream=False
 )
 print("OpenAI GPT5-nano Response:")
 print(response.choices[0].message.content)
+#showStreamedResponse(response)
 
 
 # Google Gemini API call
 """
-import google.generativeai as genai
-api_key = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-pro')
-print("Calling Google Gemini...See how long it takes...")
-response = model.generate_content("Hello! Can you introduce yourself?")
+google_api_key = os.getenv("GEMINI_API_KEY")
+google_endpoint ="https://generativelanguage.googleapis.com/v1beta/openai/"
+print("Calling Google Gemini STREAMED...See how long it takes...")
+GoogleClient = OpenAI(
+    api_key=google_api_key,
+    base_url=google_endpoint
+)
+Googleresponse = GoogleClient.chat.completions.create(
+    # Use a compatible Gemini model name
+    model="gemini-2.5-flash",
+    messages=messages,
+    stream=True
+)
 print("Google Gemini Response:")
-print(response.text)
+showStreamedResponse(Googleresponse)
 """
+
+
+
 
 """
 from openai import AzureOpenAI
