@@ -9,12 +9,20 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")    
 client = OpenAI(api_key=api_key)    
 print("Calling OpenAI GPT5-nano...See how long it takes...")
+
+messages = [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello!"},
+    {"role": "assistant", "content": "Hi there! How can I help you today?"},
+    {"role": "user", "content": "Can you explain recursion in simple terms?"},
+    {"role": "assistant", "content": "Sure! Recursion is when a function calls itself to solve smaller parts of a problem."},
+    {"role": "user", "content": "Can you give me a Python example?"}
+]
+
 response = client.chat.completions.create(
     model="gpt-5-nano",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Hello! Can you introduce yourself?"}
-    ],
+    messages=messages,
+    temperature=0.7,
     stream=False
 )
 print("OpenAI GPT5-nano Response:")
