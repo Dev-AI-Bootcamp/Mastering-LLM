@@ -40,33 +40,18 @@ cp .env.example .env
 
 Run the application using UV:
 ```bash
-uv run main.py
+uv run Simple_call.py
 ```
 
-### Switching Between Different LLM Providers
-
-#### Using OpenAI (Default)
-The application is configured to use OpenAI's GPT5-nano by default. Simply ensure your `OPENAI_API_KEY` is set in the `.env` file.
-
-#### Using Google Gemini
-1. Uncomment the Google Gemini function in `main.py`
-2. Uncomment the call to `call_google_gemini()` in the `main()` function
-3. Add your `GEMINI_API_KEY` to the `.env` file
-
-#### Using Azure OpenAI
-1. Uncomment the Azure OpenAI function in `main.py`
-2. Uncomment the call to `call_azure_openai_gpt5_nano()` in the `main()` function
-3. Add your Azure credentials to the `.env` file:
-   - `AZURE_OPENAI_ENDPOINT`
-   - `AZURE_OPENAI_API_KEY`
-   - `AZURE_OPENAI_DEPLOYMENT`
 
 ### Project Structure
 
 ```
 .
-├── main.py              # Main application file with LLM API calls
-├── pyproject.toml       # UV project configuration and dependencies
+├── Simple_call.py      # Main application file with LLM API calls
+├── Full_call.py        # Main application file with proper comments, functions and try catches
+├── pyproject.toml      
+# UV project configuration and dependencies
 ├── uv.lock             # UV lock file for reproducible builds
 ├── .env.example        # Example environment variables file
 ├── .env                # Your actual environment variables (git-ignored)
@@ -85,6 +70,3 @@ The application is configured to use OpenAI's GPT5-nano by default. Simply ensur
 - **Google Gemini**: https://aistudio.google.com/app/apikey
 - **Azure OpenAI**: Create a resource in Azure Portal and get credentials from there
 
-### License
-
-See LICENSE file for details.
