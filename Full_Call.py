@@ -28,6 +28,7 @@ def call_openai_gpt5_nano():
     
     try:
         # Create a chat completion request
+        print("Calling OpenAI GPT5-nano...See how long it takes...")
         response = client.chat.completions.create(
             model="gpt-5-nano",
             messages=[
@@ -46,8 +47,7 @@ def call_openai_gpt5_nano():
         print(f"Error calling OpenAI API: {e}")
 
 
-# COMMENTED: Google Gemini API call
-"""
+# Google Gemini API call
 def call_google_gemini():
     '''Call Google Gemini using the gemini library.'''
     import google.generativeai as genai
@@ -63,10 +63,12 @@ def call_google_gemini():
     genai.configure(api_key=api_key)
     
     try:
+        
         # Initialize the model
         model = genai.GenerativeModel('gemini-pro')
         
         # Generate content
+        print("Calling Google Gemini...See how long it takes...")
         response = model.generate_content("Hello! Can you introduce yourself?")
         
         # Print the response
@@ -75,11 +77,9 @@ def call_google_gemini():
         
     except Exception as e:
         print(f"Error calling Google Gemini API: {e}")
-"""
 
 
 # COMMENTED: Azure OpenAI API call
-"""
 def call_azure_openai_gpt5_nano():
     '''Call OpenAI's GPT5-nano model via Azure AI Foundry.'''
     from openai import AzureOpenAI
@@ -94,6 +94,7 @@ def call_azure_openai_gpt5_nano():
         print("Required: AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT")
         return
     
+    
     # Initialize Azure OpenAI client
     client = AzureOpenAI(
         azure_endpoint=azure_endpoint,
@@ -103,6 +104,7 @@ def call_azure_openai_gpt5_nano():
     
     try:
         # Create a chat completion request
+        print("Calling Azure OpenAI GPT5-nano...See how long it takes...")
         response = client.chat.completions.create(
             model=azure_deployment,  # This is the deployment name in Azure
             messages=[
@@ -119,7 +121,7 @@ def call_azure_openai_gpt5_nano():
         
     except Exception as e:
         print(f"Error calling Azure OpenAI API: {e}")
-"""
+
 
 
 def main():
@@ -132,15 +134,11 @@ def main():
     # Call OpenAI GPT5-nano (active)
     call_openai_gpt5_nano()
     
-    # Uncomment the following to call Google Gemini
-    # print("\n" + "=" * 60 + "\n")
-    # call_google_gemini()
+    # Call Google Gemini
+    call_google_gemini()
     
     # Uncomment the following to call Azure OpenAI
-    # print("\n" + "=" * 60 + "\n")
-    # call_azure_openai_gpt5_nano()
-    
-    print("\n" + "=" * 60)
+    call_azure_openai_gpt5_nano()
 
 
 if __name__ == "__main__":
