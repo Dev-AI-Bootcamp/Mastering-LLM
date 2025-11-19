@@ -11,6 +11,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)    
 print("Calling OpenAI GPT5-nano...See how long it takes...")
 
+# function that shows the streamed response
 def showStreamedResponse(streamed_response):
     for chunk in streamed_response:
         # Check for the delta content in the first choice
@@ -29,6 +30,9 @@ messages = [
     {"role": "user", "content": "Can you give me a Python example?"}
 ]
 
+
+# Calling OpenAI with the OpenAI Python SDK
+"""
 response = client.chat.completions.create(
     model="gpt-5-nano",
     messages=messages,
@@ -37,6 +41,10 @@ response = client.chat.completions.create(
 print("OpenAI GPT5-nano Response:")
 print(response.choices[0].message.content)
 #showStreamedResponse(response)
+# """
+
+
+
 
 
 # Google Gemini API call
@@ -60,27 +68,25 @@ showStreamedResponse(Googleresponse)
 
 
 
+# Azure OpenAI GPT5-nano API call
+""""
+AZURE_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
+AZURE_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
+print(AZURE_ENDPOINT)
+print(AZURE_API_KEY)
+print("Calling Azure OpenAI GPT5-mini STREAMED...See how long it takes...")
+# AzureClient = OpenAI(base_url=AZURE_ENDPOINT, {
+AzureClient = OpenAI(
+    base_url=AZURE_ENDPOINT,
+    api_key=AZURE_API_KEY
+)
+
+AzureResponse = AzureClient.chat.completions.create(
+    model="gpt-5-mini",
+    messages=messages,
+    stream=False
+)
+print("Azure OpenAI Response:")
+print(AzureResponse.choices[0].message.content)
 
 """
-from openai import AzureOpenAI
-azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
-azure_deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")  # Deployment name for GPT5-nano
-client = AzureOpenAI(
-    azure_endpoint=azure_endpoint,
-    api_key=azure_api_key,
-    api_version="2024-02-15-preview"  # Use appropriate API version
-)
-print("Calling Azure OpenAI GPT5-nano...See how long it takes...")
-response = client.chat.completions.create(
-    model=azure_deployment,  # This is the deployment name in Azure
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Hello! Can you introduce yourself?"}
-    ]
-)
-print("Azure OpenAI GPT5-nano Response:")
-print(response.choices[0].message.content)
-"""
-
-
