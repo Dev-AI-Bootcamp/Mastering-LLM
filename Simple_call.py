@@ -64,7 +64,7 @@ Googleresponse = GoogleClient.chat.completions.create(
 )
 print("Google Gemini Response:")
 showStreamedResponse(Googleresponse)
-"""
+# """
 
 
 
@@ -89,4 +89,4 @@ AzureResponse = AzureClient.chat.completions.create(
 print("Azure OpenAI Response:")
 print(AzureResponse.choices[0].message.content)
 
-"""
+# """
