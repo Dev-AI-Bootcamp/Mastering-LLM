@@ -11,6 +11,7 @@ api_key = os.getenv("OPENAI_API_KEY")
     
 client= OpenAI(
     api_key=api_key,
+    #base_url="http://localhost:1234/v1"
 ) 
 model_name="gpt-5-mini"
 print("Calling OpenAI GPT5-nano...See how long it takes...")
